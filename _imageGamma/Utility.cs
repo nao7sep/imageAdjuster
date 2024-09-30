@@ -6,7 +6,7 @@ namespace _imageGamma
     public static class Utility
     {
         // https://en.wikipedia.org/wiki/Relative_luminance
-        public static double GetLuminance (byte red, byte green, byte blue) => 0.2126 * red + 0.7152 * green + 0.0722 * blue;
+        public static byte GetLuminance (byte red, byte green, byte blue) => (byte) Math.Round (0.2126 * red + 0.7152 * green + 0.0722 * blue);
 
         public static int [] GetLuminanceHistogramData (Image <Rgba32> image)
         {
@@ -25,7 +25,7 @@ namespace _imageGamma
                     for (int x = 0; x < xWidth; x ++)
                     {
                         Rgba32 xPixel = xRow [x];
-                        int xLuminance = (int) Math.Round (GetLuminance (xPixel.R, xPixel.G, xPixel.B));
+                        byte xLuminance = GetLuminance (xPixel.R, xPixel.G, xPixel.B);
                         xHistogramData [xLuminance] ++;
                     }
                 }
@@ -114,5 +114,25 @@ namespace _imageGamma
             _Test ([], [100], 1, 1); // => Min: 255, Max: 255
         }
     #endif
+
+        public static byte [] CreateLookupTable (int minValue, int maxValue)
+        {
+            byte [] xLookupTable = new byte [256];
+
+            double xScale = 255.0 / (maxValue - minValue);
+
+            for (int temp = 0; temp <= 255; temp ++)
+            {
+                if (temp < minValue)
+                    xLookupTable [temp] = 0;
+
+                else if (temp > maxValue)
+                    xLookupTable [temp] = 255;
+
+                else xLookupTable [temp] = (byte) Math.Round ((temp - minValue) * xScale);
+            }
+
+            return xLookupTable;
+        }
     }
 }
