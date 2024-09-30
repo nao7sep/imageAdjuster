@@ -119,6 +119,8 @@ namespace _imageGamma
         {
             byte [] xLookupTable = new byte [256];
 
+            // minValue and maxValue are inclusive.
+            // If minValue is 0 and maxValue is 255, no scaling will be done.
             double xScale = 255.0 / (maxValue - minValue);
 
             for (int temp = 0; temp <= 255; temp ++)
@@ -129,6 +131,9 @@ namespace _imageGamma
                 else if (temp > maxValue)
                     xLookupTable [temp] = 255;
 
+                // minValue must be mapped to 0 and maxValue must be mapped to 255.
+                // The equation is technically: (temp - minValue) * 255 / (maxValue - minValue)
+                // If temp == maxValue, the result will be 255.
                 else xLookupTable [temp] = (byte) Math.Round ((temp - minValue) * xScale);
             }
 
