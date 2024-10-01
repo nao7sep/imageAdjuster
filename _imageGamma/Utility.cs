@@ -139,5 +139,31 @@ namespace _imageGamma
 
             return xLookupTable;
         }
+
+        public static void ApplyLookupTable (Image <Rgba32> image, byte [] lookupTable)
+        {
+            int xWidth = image.Width,
+                xHeight = image.Height;
+
+            image.ProcessPixelRows (accessor =>
+            {
+                // ParallelRowIterator may be applicable if we want to parallelize this.
+                // https://stackoverflow.com/questions/71388492/right-way-to-parallelize-pixel-access-across-multiple-images-using-imagesharp
+
+                for (int y = 0; y < xHeight; y ++)
+                {
+                    Span <Rgba32> xRow = accessor.GetRowSpan (y);
+
+                    for (int x = 0; x < xWidth; x ++)
+                    {
+                        Rgba32 xPixel = xRow [x];
+                        xPixel.R = lookupTable [xPixel.R];
+                        xPixel.G = lookupTable [xPixel.G];
+                        xPixel.B = lookupTable [xPixel.B];
+                        xRow [x] = xPixel;
+                    }
+                }
+            });
+        }
     }
 }
