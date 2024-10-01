@@ -156,7 +156,8 @@ namespace _imageAdjuster
                         Console.Write ("Max Value: ");
                         string? xMaxValueString = Console.ReadLine ();
 
-                        if (int.TryParse (xMaxValueString, out xMaxValue) && xMaxValue >= 0 && xMaxValue <= 255 && xMaxValue >= xMinValue)
+                        // If xMaxValue == xMinValue, CreateLookupTable still wont crash for a reason described in its comment, but it will not do anything useful.
+                        if (int.TryParse (xMaxValueString, out xMaxValue) && xMaxValue >= 0 && xMaxValue <= 255 && xMaxValue > xMinValue)
                             break;
                     }
 

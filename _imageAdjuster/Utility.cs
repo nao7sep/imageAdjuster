@@ -121,6 +121,10 @@ namespace _imageAdjuster
 
             // minValue and maxValue are inclusive.
             // If minValue is 0 and maxValue is 255, no scaling will be done.
+
+            // Becomes infinity if minValue == maxValue.
+            // https://stackoverflow.com/questions/4609698/inconsistency-in-divide-by-zero-behavior-between-different-value-types
+
             double xScale = 255.0 / (maxValue - minValue);
 
             for (int temp = 0; temp <= 255; temp ++)
