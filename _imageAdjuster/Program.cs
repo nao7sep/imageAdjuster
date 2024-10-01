@@ -115,12 +115,15 @@ namespace _imageAdjuster
 
                 foreach (var xEntry in xAnalysisData)
                 {
+                    // Supposing the average values are going to be applied,
+                    // if images are going to be more heavily adjusted than suggested, they are marked with a warning.
+
                     _OpenElement (xIndentLevel, "tr");
                     _AddElement (++ xIndentLevel, "td", Path.GetFileName (xEntry.FilePath));
-                    _AddElement (xIndentLevel, "td", xEntry.Limits0.MinValue.ToString (), (xEntry.Limits0.MinValue > xLimit0MinValueAverage) ? ["class", "warning"] : []);
-                    _AddElement (xIndentLevel, "td", xEntry.Limits0.MaxValue.ToString (), (xEntry.Limits0.MaxValue < xLimit0MaxValueAverage) ? ["class", "warning"] : []);
-                    _AddElement (xIndentLevel, "td", xEntry.Limits1.MinValue.ToString (), (xEntry.Limits1.MinValue > xLimit1MinValueAverage) ? ["class", "warning"] : []);
-                    _AddElement (xIndentLevel, "td", xEntry.Limits1.MaxValue.ToString (), (xEntry.Limits1.MaxValue < xLimit1MaxValueAverage) ? ["class", "warning"] : []);
+                    _AddElement (xIndentLevel, "td", xEntry.Limits0.MinValue.ToString (), (xEntry.Limits0.MinValue < xLimit0MinValueAverage) ? ["class", "warning"] : []);
+                    _AddElement (xIndentLevel, "td", xEntry.Limits0.MaxValue.ToString (), (xEntry.Limits0.MaxValue > xLimit0MaxValueAverage) ? ["class", "warning"] : []);
+                    _AddElement (xIndentLevel, "td", xEntry.Limits1.MinValue.ToString (), (xEntry.Limits1.MinValue < xLimit1MinValueAverage) ? ["class", "warning"] : []);
+                    _AddElement (xIndentLevel, "td", xEntry.Limits1.MaxValue.ToString (), (xEntry.Limits1.MaxValue > xLimit1MaxValueAverage) ? ["class", "warning"] : []);
                     _CloseElement (-- xIndentLevel, "tr");
                 }
 
