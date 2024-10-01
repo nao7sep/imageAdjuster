@@ -1,4 +1,4 @@
-﻿namespace _imageGamma
+﻿namespace _imageAdjuster
 {
     class Program
     {
