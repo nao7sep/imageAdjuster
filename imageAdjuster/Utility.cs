@@ -1,7 +1,7 @@
 ﻿using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 
-namespace _imageAdjuster
+namespace imageAdjuster
 {
     public static class Utility
     {

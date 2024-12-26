@@ -2,7 +2,7 @@
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 
-namespace _imageAdjuster
+namespace imageAdjuster
 {
     class Program
     {
@@ -12,7 +12,7 @@ namespace _imageAdjuster
             {
                 if (args.Length == 0)
                 {
-                    Console.WriteLine ("Usage: _imageAdjuster.exe <image1> <image2> ...");
+                    Console.WriteLine ("Usage: imageAdjuster.exe <image1> <image2> ...");
                     return;
                 }
 
